@@ -1,0 +1,179 @@
+/* pages/order/order.wxss */
+
+.title {
+  height: 50rpx;
+  width: 750rpx;
+  display: flex;
+  padding: 10rpx;
+  flex-direction: row;
+}
+
+.titleStyle {
+  font-size: 30rpx;
+  font-weight: bold;
+  margin: auto;
+}
+
+.peisong {
+  display: flex;
+  border-radius: 10rpx;
+  background-color: gold;
+  margin: 30rpx;
+  padding: 30rpx;
+  flex-direction: column;
+}
+
+.address {
+  font-size: 50rpx;
+  font-weight: bold;
+}
+
+.fenge {
+  border: 0;
+  border-bottom: 1px dashed #ccc;
+  background: #999;
+  margin-bottom: 20rpx;
+  margin-top: 20rpx;
+}
+
+.persion {
+  font-size: 20rpx;
+  font-weight: bold;
+}
+
+.name {
+  font-size: 30rpx;
+  margin-top: 10rpx;
+}
+
+.phone {
+  font-size: 45rpx;
+  margin-top: 10rpx;
+}
+
+.peisongshijian {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.persongfangshi {
+  font-size: 45rpx;
+  font-weight: bold;
+}
+
+.yujishijan {
+  color: orange;
+  font-size: 45rpx;
+  font-weight: bold;
+}
+
+.count {
+  display: flex;
+  border-radius: 10rpx;
+  background-color: aquamarine;
+  margin: 30rpx;
+  padding: 30rpx;
+  flex-direction: column;
+}
+
+.orderDetail {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 140rpx;
+  align-items: center;
+}
+
+.productImage {
+  height: 100rpx;
+  width: 100rpx;
+  border-radius: 10rpx;
+}
+
+.productNum {
+  margin-top: 80rpx;
+  font-size: 30rpx;
+}
+
+.productName {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.originPrice {
+  color: grey;
+  text-decoration: line-through;
+}
+
+.price {
+  font-weight: bold;
+  color: red;
+}
+
+.cost {
+  display: flex;
+  flex-direction: column;
+}
+
+.baozhuang {
+  display: flex;
+  justify-content: space-between;
+}
+
+.distribution {
+  display: flex;
+  justify-content: space-between;
+}
+
+.discount {
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+}
+
+.totalPrice {
+  flex-direction: row;
+  display: flex;
+  justify-content: space-around;
+}
+
+.buy {
+  color: white;
+  background-color: green;
+  width: 750rpx;
+  height: 80rpx;
+}
+
+.remark {
+  display: flex;
+  flex-direction: column;
+  background-color: cornflowerblue;
+  border-radius: 10rpx;
+  margin: 30rpx;
+  padding: 30rpx;
+}
+
+.message {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10rpx;
+}
+.tableware {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10rpx;
+}
+.payMode {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10rpx;
+}
+.btn{
+  display: flex;
+  flex-direction: row;
+}

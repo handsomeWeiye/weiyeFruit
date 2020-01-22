@@ -1,0 +1,40 @@
+<!--pages/mine/mine.wxml-->
+
+<view class="container">
+
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image  class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+
+  <view class="separate"></view>
+
+
+  <view class="separate"></view>
+  <view class="person-list">
+    <view class="list-item">
+      <image class="item-image" src="../../images/person/personal_order.png" bindtap="toOrder"></image>
+      <text class="item-text" bindtap="toOrder">我的订单</text>
+    </view>
+    <view class="person-line"></view>
+    <view class="list-item">
+      <image class="item-image" src="../../images/person/personal_site.png" bindtap="toAddress"></image>
+      <text class="item-text" bindtap="toAddress">收货地址</text>
+    </view>
+    <view class="person-line"></view>
+    <view class="list-item">
+      <image class="item-image" src="../../images/person/personal_sale_record.png"></image>
+      <text class="item-text">售后电话：19102688475</text>
+    </view>
+    <view class="person-line"></view>
+    <!-- <view class="list-item">
+      <image class="item-image" src="../../images/person/personal_evaluated.png"></image>
+      <text class="item-text">我的评价</text>
+    </view>
+    <view class="person-line"></view> -->
+  </view>
+  <view class="separate"></view>
+</view>

@@ -1,0 +1,83 @@
+<view>
+  <view class="title">
+    <text class="titleStyle">提交订单</text>
+  </view>
+  <view class="peisong">
+    <view wx:if="{{isHasInfo}}" bindtap="updateInfo">
+      <text class="address">{{userInfo.address}}</text>
+      <text class="name">{{userInfo.name}} {{userInfo.phone}}</text>
+    </view>
+    <view wx:else>
+      <button bindtap="addUserInfo">完善配送信息</button>
+    </view>
+
+    <view class="fenge"></view>
+    <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+      <view wx:if="{{! isHasTime}}">
+        <van-button type="primary" bindchange="bindMultiPickerChange">选择配送时间呦</van-button>
+      </view>
+      <view wx:else class="yujishijan">大约{{deliveryTime}}送达</view>
+
+    </picker>
+
+  </view>
+  <view class="count">
+    <block wx:for="{{carts}}">
+      <view wx:if="{{item.isSeleted}}">
+        <view class="orderDetail">
+          <image class="productImage" src="{{item.image}}"></image>
+          <text class="productNum">*{{item.num}}</text>
+          <text class="productName">{{item.name}}</text>
+          <text class="originPrice">{{item.orginPrice}}</text>
+          <text class="Price">{{item.price}}</text>
+        </view>
+      </view>
+
+    </block>
+
+    <view class="fenge"></view>
+    <view class="cost">
+      <view class="baozhuang">
+        <text>包装费</text>
+        <text>￥{{packageCost}}</text>
+      </view>
+      <view class="distribution">
+        <text>配送费</text>
+        <text>￥0</text>
+      </view>
+    </view>
+    <view class="fenge"></view>
+    <view class="discount" bindtap="onOpen" class="discount">
+      <text>代金券</text>
+      <text>-￥{{discount==null?0:discount}}</text>
+    </view>
+    <van-action-sheet show="{{ show }}" actions="{{ actions }}" bind:close="onClose" bind:select="onSelect" />
+    <view class="fenge"></view>
+    <view class="totalPrice">
+      <text>已优惠 <text class="originPrice">￥{{totalOriginMoney - totalMoney + discount}}</text></text>
+      <text class="price">小计 ￥{{(totalMoney + packageCost - discount)>=0?(totalMoney + packageCost - discount):0}}</text>
+    </view>
+    <view class="fenge"></view>
+    <view class="btn">
+      <button type="primary">提交订单</button>
+    </view>
+
+  </view>
+  <view class="remark">
+    <!-- <view class="message">
+      <text>备注</text>
+      <text>口味偏好等要求</text>
+    </view> -->
+    <!-- <view class="fenge"></view> -->
+    <view class="tableware">
+    <van-picker columns="{{ columns }}" bind:change="onChange" />
+      <text>餐具数量</text>
+      <text>未选择</text>
+    </view>
+    <view class="fenge"></view>
+    <view class="payMode">
+      <text>支付方式</text>
+      <text>在线支付</text>
+    </view>
+  </view>
+</view>

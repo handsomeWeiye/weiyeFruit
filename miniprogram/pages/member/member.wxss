@@ -1,0 +1,52 @@
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f0145a;
+}
+.account-bg {
+  width: 100%;
+  height: 300rpx;
+}
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #fff;
+    align-items: center;
+}
+
+/* 列表 */
+.person-list {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+.list-item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 80rpx;
+}
+.item-image {
+  width: 40rpx;
+  height: 40rpx;
+  margin: 20rpx;
+}
+.item-text {
+  color: gray;
+  font-size: 25rpx;
+  margin-left: 20rpx;
+}
+.person-line {
+  width: 100%;
+  height: 2rpx;
+  background: lightgray;
+  margin-left: 90rpx;
+}
