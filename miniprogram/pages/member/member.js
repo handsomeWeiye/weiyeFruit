@@ -47,6 +47,11 @@ Page({
       })
     );
   },
+  toAddress:function(){
+    wx.navigateTo({
+      url: '../userInfo/userInfo',
+    })
+  },
   //事件处理函数
   toOrder: function () {
     wx.navigateTo({

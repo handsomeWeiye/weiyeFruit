@@ -108,7 +108,16 @@ button {
   line-height: 80rpx;
 }
 
-
+.commentBlock{
+  display: flex;
+  box-direction: row;
+  background: khaki;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  align-content: space-around;
+  justify-content: space-around;
+  margin: 20rpx;
+}
 
 .cartContainer{
   width: 75rpx;

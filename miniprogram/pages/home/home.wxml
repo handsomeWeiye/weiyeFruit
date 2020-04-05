@@ -41,14 +41,33 @@
 <!--水果专场 end-->
 <!-- 共<text class="text-red">{{totalMoney}}</text>元 -->
 <!-- 底部悬浮栏 -->
-<view class="detail-nav">
+<!-- <view class="detail-nav">
   <view class="line_nav">
     <image bindtap="toCar" src="../../images/home/cart_select.png" class="cartContainer" />
     <button class="button-green" bindtap="toCar" formType="submit">购物车</button>
     <button class="button-red" bindtap="toBuy" formType="submit">立即购买</button>
   </view>
 
-</view>
+</view> -->
+
+<van-goods-action>
+  <van-goods-action-icon
+    icon="chat-o"
+    text="客服"
+    bind:click="toMember"
+  />
+  <van-goods-action-icon
+    icon="cart-o"
+    text="购物车"
+    bind:click="toCar"
+    dot 
+  />
+
+  <van-goods-action-button
+    text="立即购买"
+    bind:click="toBuy"
+  />
+</van-goods-action>
 
 <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
   <view class="weui-loading"></view>

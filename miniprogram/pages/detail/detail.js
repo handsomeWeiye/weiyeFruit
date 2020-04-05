@@ -24,6 +24,9 @@ Page({
       icon: 'success',
       duration: 3000
     });
+    wx.navigateTo({
+      url: '../order/order',
+    })
     this.setData({
       showDialog: !this.data.showDialog
     });

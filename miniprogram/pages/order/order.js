@@ -26,14 +26,37 @@ Page({
     actions:[],
 
     tableWareNum:[1,2,3],
+    tableWareChoice:'默认为一套',
+    isTableWareShow:false,
   },
-
+  tableWareOpen:function(){
+    this.setData({
+      isTableWareShow: true
+    })
+  },
+  tableWareShowClose:function(){
+    this.setData({
+      isTableWareShow:false
+    })
+  },
+  tableWareConfirm:function(e){
+    console.log(e.detail.value)
+    var num = e.detail.value
+    var str = '选择' + parseInt(num) + '套餐具'
+    wx.showToast({
+      title: str,
+    })
+    this.setData({
+      tableWareChoice: num
+    })
+  },
 
   addUserInfo: function() {
     wx.navigateTo({
       url: '../userInfo/userInfo',
     })
   },
+  
   /**
    * 生命周期函数--监听页面加载
    */

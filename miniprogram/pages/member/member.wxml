@@ -1,7 +1,6 @@
 <!--pages/mine/mine.wxml-->
 
 <view class="container">
-
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
@@ -15,14 +14,14 @@
 
   <view class="separate"></view>
   <view class="person-list">
-    <view class="list-item">
+    <view class="list-item" bindtap="toOrder">
       <image class="item-image" src="../../images/person/personal_order.png" bindtap="toOrder"></image>
-      <text class="item-text" bindtap="toOrder">我的订单</text>
+      <text class="item-text" >我的订单</text>
     </view>
     <view class="person-line"></view>
-    <view class="list-item">
+    <view class="list-item" bindtap="toAddress">
       <image class="item-image" src="../../images/person/personal_site.png" bindtap="toAddress"></image>
-      <text class="item-text" bindtap="toAddress">收货地址</text>
+      <text class="item-text" >收货地址</text>
     </view>
     <view class="person-line"></view>
     <view class="list-item">

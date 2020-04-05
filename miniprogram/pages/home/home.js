@@ -94,6 +94,12 @@ Page({
     app.addCarts(parm);
   },
 
+  toMember:function(){
+    wx.switchTab({
+      url: '../member/member',
+    })
+  },
+
   // //添加到购物车
   // addCarts: function(parm) {
   //   console.log('购物车添加');

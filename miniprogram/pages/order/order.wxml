@@ -1,3 +1,21 @@
+<!-- <wxs module="fn">
+  module.exports = {
+    parseFloat: function(num) {
+      return parseFloat(num).toFixed(2)
+    }，
+  }
+</wxs> -->
+  <wxs module="fn">
+      module.exports = {
+          parseFloat: function(num){
+            return parseFloat(num);
+          },
+          toFixed: function(num){
+            return num.toFixed(2);
+          }
+      }
+  </wxs>
+
 <view>
   <view class="title">
     <text class="titleStyle">提交订单</text>
@@ -54,8 +72,8 @@
     <van-action-sheet show="{{ show }}" actions="{{ actions }}" bind:close="onClose" bind:select="onSelect" />
     <view class="fenge"></view>
     <view class="totalPrice">
-      <text>已优惠 <text class="originPrice">￥{{totalOriginMoney - totalMoney + discount}}</text></text>
-      <text class="price">小计 ￥{{(totalMoney + packageCost - discount)>=0?(totalMoney + packageCost - discount):0}}</text>
+      <text>已优惠 <text class="originPrice">￥{{fn.toFixed(totalOriginMoney - totalMoney + discount)}}</text></text>
+      <text class="price">小计 ￥{{fn.toFixed(totalMoney + packageCost - discount)>=0?fn.toFixed(totalMoney + packageCost - discount):0}}</text>
     </view>
     <view class="fenge"></view>
     <view class="btn">
@@ -69,15 +87,17 @@
       <text>口味偏好等要求</text>
     </view> -->
     <!-- <view class="fenge"></view> -->
-    <view class="tableware">
-    <van-picker columns="{{ columns }}" bind:change="onChange" />
+    <view class="tableware" bindtap="tableWareOpen">
       <text>餐具数量</text>
-      <text>未选择</text>
+      <text>{{tableWareChoice}}</text>
     </view>
     <view class="fenge"></view>
     <view class="payMode">
       <text>支付方式</text>
       <text>在线支付</text>
     </view>
+    <van-popup show="{{ isTableWareShow }}" bind:close="tableWareShowClose" position="bottom" custom-style="height:40%;">
+      <van-picker show-toolbar title="餐具数量" bind:cancel="tableWareShowClose" bind:confirm="tableWareConfirm" columns="{{ tableWareNum }}" />
+    </van-popup>
   </view>
 </view>

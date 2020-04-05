@@ -6,28 +6,31 @@
     </swiper-item>
   </block>
 </swiper>
-<scroll-view scroll-y="true">
-  <view class="detail">
-    <text class="title">{{product.name}}</text>
-    <text class="price">￥{{product.price}}</text>
-  
 
+<view class="detail">
+  <text class="title">{{product.name}}</text>
+  <text class="price">￥{{product.price}}</text>
+
+</view>
+
+<view class="separate"></view>
+<text>商品评价</text>
+<scroll-view scroll-y="true">
+<block wx:for-items="{{comments}}" wx:key="name">
+  <view class="commentBlock">
+    <text class="text-remark">{{item.body}}</text>
+    <text class="text-remark">{{item.createdAt}}</text>
+    <text class="text-remark">{{item.nickName}}</text>
   </view>
 
-  <view class="separate"></view>
-  <text>商品评价</text>
-  
-  <block wx:for-items="{{comments}}" wx:key="name">
-  <text class="text-remark">{{item.body}}</text>
-  <text class="text-remark">{{item.createdAt}}</text>
-  <text class="text-remark">{{item.nickName}}</text>
   <!-- <image class="image_detail" src="{{item}}" /> -->
-  </block>
-  <view class="separate"></view>
-
-  <view class="temp"></view>
+</block>
 </scroll-view>
-<!-- 底部悬浮栏 -->
+<view class="separate"></view>
+
+<view class="temp"></view>
+
+<!-- 底部悬浮栏
 <view class="detail-nav">
   <view class="line_nav">
     <image bindtap="toCar" src="../../images/home/cart_select.png" class="cartContainer" />
@@ -35,4 +38,9 @@
     <button class="button-red" bindtap="toBuy" formType="submit">立即购买</button>
   </view>
 
-</view>
+</view> -->
+<van-goods-action>
+  <van-goods-action-icon icon="chat-o" text="客服" bind:click="toMember" />
+  <van-goods-action-icon icon="cart-o" text="购物车" bind:click="toCar" dot />
+  <van-goods-action-button text="立即购买" bind:click="toBuy" />
+</van-goods-action>

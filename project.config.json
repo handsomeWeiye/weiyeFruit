@@ -3,11 +3,24 @@
 	"cloudfunctionRoot": "cloudfunctions/",
 	"setting": {
 		"urlCheck": true,
-		"es6": true,
+		"es6": false,
+		"enhance": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"enhance": true
+		"coverView": true,
+		"nodeModules": true,
+		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
 	"appid": "wxba1634b4957abfd4",
 	"projectname": "weiyeFruit",
