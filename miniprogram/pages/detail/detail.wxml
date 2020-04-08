@@ -1,46 +1,98 @@
-<!-- banner -->
+<!-- swiper -->
 <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-  <block wx:for="{{imgUrls}}">
+  <block wx:for="{{goodsDetail.pics}}" wx:key="id">
     <swiper-item>
-      <image src="{{item}}" data-src="{{item}}" bindtap="previewImage"></image>
+      <image src="{{item.pic}}" data-src="{{item}}" bindtap="previewImage" width="355" height="150" mode="aspectFit" lazy-load="true"></image>
     </swiper-item>
   </block>
 </swiper>
-
+<!-- 商品详情 -->
 <view class="detail">
-  <text class="title">{{product.name}}</text>
-  <text class="price">￥{{product.price}}</text>
-
+  <text class="title">{{goodsDetail.basicInfo.name}}</text>
+  <view class="info">
+    <text class="price">￥{{goodsDetail.basicInfo.minPrice}}</text>
+    <view class="goods-price" style="color:#999;font-size:24rpx;">
+      购买{{goodsDetail.basicInfo.numberOrders}}次
+    </view>
+    <view class="goods-price" style="color:#999;font-size:24rpx;">
+      共收到 {{goodsDetail.basicInfo.numberGoodReputation}} 次好评
+    </view>
+  </view>
 </view>
-
 <view class="separate"></view>
-<text>商品评价</text>
-<scroll-view scroll-y="true">
-<block wx:for-items="{{comments}}" wx:key="name">
-  <view class="commentBlock">
-    <text class="text-remark">{{item.body}}</text>
-    <text class="text-remark">{{item.createdAt}}</text>
-    <text class="text-remark">{{item.nickName}}</text>
+<!-- 按钮选择框 -->
+<view class="container">
+  <van-button type="info" bindtap="selectDetail" custom-class="custom-class">详情</van-button>
+  <van-button type="primary" bindtap="selectComment" custom-class="custom-class">评价</van-button>
+</view>
+<!-- 不同的选择产生不同的网页 -->
+<view wx:if="{{isDetail}}">
+  <!-- 商品详情 -->
+  <view class="goods-des-info">
+    <view class="goods-text">
+      <rich-text nodes="{{html}}"></rich-text>
+    </view>
+  </view>
+</view>
+<view wx:else>
+  <!-- 商品评价 -->
+  <scroll-view scroll-y="true">
+    <block wx:for-items="{{goodsReputation}}" wx:key="name">
+      <view class="commentBlock">
+        <text class="text-remark">{{item.body}}</text>
+        <text class="text-remark">{{item.createdAt}}</text>
+        <text class="text-remark">{{item.nickName}}</text>
+      </view>
+
+    </block>
+  </scroll-view>
+</view>
+<view class="separate"></view>
+
+<!-- 底部菜单栏 -->
+  <view class="footer-box">
+    <view class="contact">
+      <button style="opacity:0;position:absolute;" type="default-dark" bindtap="phoneCall" size="27"></button>
+      <view style='position:absolute;bottom:10rpx;'> 卖家 </view>
+    </view>
+    <view class="shop-cart-btn" bindtap="toCar">
+      <view class="shop-num">({{shopNum}})</view>
+      <view style='position:absolute;bottom:10rpx;'> 购物车 </view>
+    </view>
+    <view class="join-shop-cart" bindtap="openPopUp" data-name="加入购物车">加入购物车</view>
+    <view class="now-buy" bindtap="openPopUp" data-name="立即购买">立即购买</view>
   </view>
 
-  <!-- <image class="image_detail" src="{{item}}" /> -->
-</block>
-</scroll-view>
-<view class="separate"></view>
 
-<view class="temp"></view>
+  <!-- 底部弹出窗口 -->
+  <van-popup show="{{ isShow }}" closeable round close-icon="close"  close-icon-position="top-left" bind:close="closePopUp" position="bottom" custom-style="height:40%;">
+    <view class="info">
+        <image src="{{goodsDetail.basicInfo.pic}}" style="width:100rpx;height:100rpx;margin:20rpx"></image>
+        <view class="word">
+            <text class="title">{{goodsDetail.basicInfo.name}}</text>
+            <text class="price">￥{{goodsDetail.basicInfo.minPrice}}</text>
+        </view>
+    </view>
+    <view class="separate"></view>
+    <view class="specification">
+        <text class="title">规格</text>
+        <view class="size-label-box" >
+        <block wx:for="{{goodsDetail.properties}}" wx:for-item="property" wx:for-index="idx" wx:key="id">
+          <view class="label-item-box">
+            <view class="label-item {{item.active ? 'active' : '' }}" wx:for="{{property.childsCurGoods}}" wx:key="id" bindtap="labelItemTap" data-propertyindex="{{idx}}" data-propertyid="{{property.id}}" data-propertyname="{{property.name}}" data-propertychildindex="{{index}}"
+              data-propertychildid="{{item.id}}" data-propertychildname="{{item.name}}">
+              {{item.name}}
+            </view>
+          </view>
+        </block>
+        </view>
+    </view>
+    <view class="number" >
+        <text class="title">购买数量</text>
+        <van-stepper bind:change="getBuyNum"  button-size></van-stepper>
+    </view>
 
-<!-- 底部悬浮栏
-<view class="detail-nav">
-  <view class="line_nav">
-    <image bindtap="toCar" src="../../images/home/cart_select.png" class="cartContainer" />
-    <button class="button-green" bindtap="addCarts" formType="submit">加入购物车</button>
-    <button class="button-red" bindtap="toBuy" formType="submit">立即购买</button>
-  </view>
-
-</view> -->
-<van-goods-action>
-  <van-goods-action-icon icon="chat-o" text="客服" bind:click="toMember" />
-  <van-goods-action-icon icon="cart-o" text="购物车" bind:click="toCar" dot />
-  <van-goods-action-button text="立即购买" bind:click="toBuy" />
-</van-goods-action>
+    <view class="bottom-button">
+        <van-button type="danger" >{{choiceName}}</van-button>
+    </view>
+</van-popup>

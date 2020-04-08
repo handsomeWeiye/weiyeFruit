@@ -1,23 +1,105 @@
 var app = getApp()
-var Bmob = require('../../utils/Bmob-2.2.2.min.js');
-// pages/detail/detail.js
+const WXAPI = require('apifm-wxapi')
+WXAPI.init('weiye')
+
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    objectId: '',
-    product: '',
-    imgUrls:[],
-    comments:[],
-    image:'',
     indicatorDots: true, //是否显示面板指示点
     autoplay: true, //是否自动切换
     interval: 3000, //自动切换时间间隔,3s
     duration: 1000, //  滑动动画时长1s
+
+    buyNum:1,//用户想要购买的商品数量
+    phone: '19102688475',//卖家电话号码
+
+    goodsDetail: {}, //商品详情
+    goodsReputation: [], //商品评价
+    isDetail: true,//是否显示详情
+
+    isShow: true,//是否弹出窗口
+
+    html: '',//解析的网页文本
+  },
+  onLoad: function (options) {
+    this.getGoodsDetail();
+    this.getGoodsReputation();
+    this.parseHtml();
   },
 
+  //获取用户选择情况
+  getIsDetail(e) {
+    console.log('传来的值为', e.detail.val);
+    this.setData({
+      isDetail: e.detail.val
+    })
+  },
+
+  //获取商品详情数据
+  getGoodsDetail() {
+    WXAPI.goodsDetail(368261).then(res => {
+      if (res.code == 0) {
+        console.log('商品详情：', res.data)
+        this.setData({
+          goodsDetail: res.data
+        });
+        this.parseHtml();
+      }
+    })
+  },
+  //获取商品评价数据
+  getGoodsReputation() {
+    WXAPI.goodsReputation(368311).then(res => {
+      if (res.code == 0) {
+        console.log('商品评价：', res.data)
+        this.setData({
+          goodsReputation: res.data
+        })
+      } else {
+        console.log('获取商品评价');
+      }
+    })
+  },
+
+  //选择商品评价或者是详情
+  selectDetail() {
+    this.setData({
+      isDetail: true
+    });
+  },
+  selectComment() {
+    this.setData({
+      isDetail: false
+    });
+  },
+
+  //显示商品详情
+  parseHtml() {
+    console.log(this.data.goodsDetail.content);
+    var html = this.data.goodsDetail.content
+    html = html.replace(/\<img/gi, '<img style="max-width:100%;height:auto" mode="widthFix"')
+    this.setData({
+      html: html
+    })
+  },
+
+  //联系卖家
+  phoneCall: function () {
+
+    wx.makePhoneCall({
+
+      phoneNumber: this.data.phone
+
+    })
+
+  },
+
+
+  //立即下单（底部弹出窗口下单）
   toBuy() {
     wx.showToast({
       title: '立即购买',
@@ -31,8 +113,9 @@ Page({
       showDialog: !this.data.showDialog
     });
   },
-  //添加到购物车
-  addCarts: function() {
+
+  //添加到购物车（底部弹出窗口添加购物车）
+  addCarts: function () {
     console.log('购物车添加');
     // console.log(app.globalData.carts);
     // let that = this;
@@ -95,98 +178,99 @@ Page({
     }
 
   },
+  //点击购物车
+  tapCar(e) {
+    console.log('商品加入购物车');
+    this.setData({
+      isShow: true,
+      operation: '加入购物车'
+    });
 
+  },
+  //点击订单
+  tapOrder(e) {
+    console.log('商品下单');
+    this.setData({
+      isShow: true,
+      operation: '立即购买'
+    });
+
+  },
+  //打开弹窗
+  openPopUp(e) {
+    var data = e.currentTarget.dataset.name
+    this.setData({
+      isShow: true,
+      choiceName: data
+    })
+  },
+  //关闭弹窗
+  closePopUp() {
+    this.setData({
+      isShow: false
+    })
+  },
+  getBuyNum(e) {
+    console.log('用户选择的数量', e.detail)
+    this.setData({
+      buyNum : e.detail
+    })
+  },
+
+  //跳转到购物车页面
   toCar: function () {
     wx.switchTab({
       url: '../cart/cart',
     })
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-    var that = this;
-    var objectId = options.objectId;
-    console.log(objectId);
-    var query = Bmob.Query('product');
-    var query1 = Bmob.Query('commet');
-    query.get(objectId).then(res => {
-      console.log(res);
-      var image = res.image;
-      var list = [image];
-      console.log(list);
-      this.setData({
-        imgUrls: list,
-        product : res,
-        image: res.image,
-        objectId:objectId
-      })
-      // console.log(this.image);
-      
-    });
-
-    console.log(this.imgUrls);
-    console.log(this.product);
-    console.log(this.image);
-
-    query1.find().then(res => {
-      console.log(res);
-      this.setData({
-        comments:res
-      })
-    }).catch(err => {
-      console.log(res);
-    });
-  },
-
 
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

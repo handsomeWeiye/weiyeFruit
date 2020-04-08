@@ -1,14 +1,14 @@
 {
   "cloud": true,
   "pages": [
-        "pages/splash/splash",
-        "pages/order/order",
-    "pages/userInfo/userInfo",
-
+    "pages/detail/detail",
     "pages/home/home",
+    "pages/notice/show",
+    "pages/start/start",
+    "pages/splash/splash",
+    "pages/userInfo/userInfo",
     "pages/cart/cart",
-    "pages/member/member",
-    "pages/detail/detail"
+    "pages/member/member"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -2,7 +2,7 @@
 App({
 
 
-  onLaunch: function() {
+  onLaunch: function () {
 
     var that = this
 
@@ -45,7 +45,7 @@ App({
 
 
   //用户登录模块
-  login: function(queryUser) {
+  login: function (queryUser) {
 
     var that = this;
 
@@ -123,12 +123,12 @@ App({
 
   },
 
-  onHide: function() {
+  onHide: function () {
     this.saveCarts();
   },
 
   //获取carts持久化数据模块
-  getCarts: function() {
+  getCarts: function () {
     var that = this;
     wx.getStorage({
       key: "carts",
@@ -145,12 +145,12 @@ App({
   },
 
   //保存carts持久化数据模块
-  saveCarts: function() {
+  saveCarts: function () {
     wx.setStorageSync("carts", Array.from(this.globalData.carts));
   },
 
   //add模块，添加商品到购物车
-  addCarts: function(parm) {
+  addCarts: function (parm) {
     console.log('购物车添加');
     if (this.globalData.carts.length == 0) {
       //如果carts是空的，那么就直接添加
@@ -210,12 +210,12 @@ App({
   },
 
   //remove模块，从购物车中删除商品
-  removeCarts:function(parm){
+  removeCarts: function (parm) {
     for (let i = 0; i < this.globalData.carts.length; i++) {
       //遍历循环，如果找到ID相同的商品，那么就删除，提示删除成功，重新计算总价，并且退出循环
       if (this.globalData.carts[i]['objectId'] == parm.target.dataset.item.objectId) {
         //找到相同项，开始删除
-        this.globalData.carts.splice(i,1);
+        this.globalData.carts.splice(i, 1);
         console.log(this.globalData.carts);
         //提示成功
         wx.showToast({
@@ -223,13 +223,14 @@ App({
         });
         //重新计算总价
         this.countTotal();
-        return null;        
-      }}
+        return null;
+      }
+    }
   },
 
 
   //count模块，用户计算carts中被选中的商品的总价格，总原价，总数量，并且赋值到全局变量
-  countTotal: function() {
+  countTotal: function () {
     //清空原有的数据
     this.globalData.totalMoney = 0;
     this.globalData.totalOriginMoney = 0;
@@ -290,6 +291,13 @@ App({
     isHasPhone: false,
     isHasNickNam: false,
     carts: [],
+
+    //主题控制
+    globalBGColor: '#00afb4',
+    bgRed: 0,
+    bgGreen: 175,
+    bgBlue: 180,
+
   },
 
 })

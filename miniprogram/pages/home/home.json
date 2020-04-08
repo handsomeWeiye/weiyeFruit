@@ -2,6 +2,7 @@
     "usingComponents": {
         "van-goods-action": "../../miniprogram_npm/vant-weapp/goods-action/index",
         "van-goods-action-icon": "../../miniprogram_npm/vant-weapp/goods-action-icon/index",
-        "van-goods-action-button": "../../miniprogram_npm/vant-weapp/goods-action-button/index"
+        "van-goods-action-button": "../../miniprogram_npm/vant-weapp/goods-action-button/index",
+        "van-notice-bar": "../../miniprogram_npm/vant-weapp/notice-bar/index"
     }
 }

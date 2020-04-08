@@ -9,6 +9,24 @@ swiper-item image {
   height: 100%;
 }
 
+/* 推荐分隔栏 */
+.introduced {
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  margin-top: 15rpx;
+  color: #e64340;
+}
+
+.introduced .introudced-img {
+  width: 175rpx;
+  height: 56rpx;
+}
+
 .welfares{
   display: flex;
   justify-content: left;
@@ -17,7 +35,7 @@ swiper-item image {
   margin:10px 5px;
 }
 .welfares-good{
-  height: 560rpx; 
+  height: 500rpx; 
   width: 47%;
   margin:0px auto;
   margin-bottom: 20px;
@@ -27,25 +45,29 @@ swiper-item image {
 }
 .welfares-image{
   width: 100%;
-  display: inline-block;
+  height: 60%;
   border: 1px #eee solid; 
 }
 .welfares-good .product-name{
   color: #000;
-  height: 28px;
+  height: 28rpx;
   text-align:left;
    margin: 0px 5px; 
    margin-bottom: 5px; 
+  font-size: 30rpx;
+  font-weight: normal;
 }
 .product-price-wrap .product-price-new{
   color: #e80080;
-  margin-left:5px;
+  margin-left:5rpx;
   font-weight:900;
+  font-size: 40rpx;
 }
 .product-price-wrap .product-price-old{
   color: #888;
   text-decoration: line-through;
   padding-left: 2px;
+  font-size: 28rpx;
 }
 .product-price-wrap .discount{
   position: absolute;
