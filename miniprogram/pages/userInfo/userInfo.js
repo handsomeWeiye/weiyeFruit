@@ -1,5 +1,6 @@
 var app = getApp()
-var Bmob = require('../../utils/Bmob-2.2.2.min.js');
+const WXAPI = require('apifm-wxapi')
+WXAPI.init('weiye')
 
 // pages/userInfo/userInfo.js
 Page({
@@ -12,6 +13,8 @@ Page({
     phone: null,
     room: null,
     floor: null,
+    provinceId:510000000000,
+    cityId:510100000000,
     isHasInfo: false,
     multiArray: [
       ['成大二期A区', '成大二期B区', '成大二期C区'],
@@ -21,10 +24,10 @@ Page({
   },
 
   bindMultiPickerChange: function(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    console.log('选择的index为', e.detail.value)
     var index = e.detail.value
     var floor = this.data.multiArray[0][index[0]] + this.data.multiArray[1][index[1]] + this.data.multiArray[2][index[2]];
-    console.log('picker发送选择改变，携带值为', floor);
+    console.log('目前选择的楼层为', floor);
     this.setData({
       isHasInfo: true,
       multiIndex: e.detail.value,
@@ -39,14 +42,13 @@ Page({
     })
   },
   addPhone: function(e) {
-    console.log(e);
-   
+    console.log(e.detail.value);
     this.setData({
       phone: e.detail.value
     })
   },
   addRoom: function(e) {
-    console.log(e);
+    console.log(e.detail.value);
     this.setData({
       room: e.detail.value
     })
@@ -54,31 +56,38 @@ Page({
   },
   confirm: function() {
     if (this.data.name != null && this.data.phone != null && this.data.floor != null && this.data.room != null) {
-      var query = Bmob.Query('member');
-      query.get(app.globalData.userId).then(
-        res => {
-          // console.log(res);
-          res.set('name', this.data.name);
-          res.set('phone', this.data.phone);
-          res.set('address', this.data.floor + this.data.room);
-          res.save().then(res => {
-            if(res.updataeAt != ''){
-              wx.showToast({
-                title: '信息添加成功',
-              })
-              wx.navigateTo({
-                url: '../order/order',
-              })
-            }
-          }).catch(err => {
-            console.log(err);
-            wx.showToast({
-              title: '信息添加失败，请重试',
-            })
+      // 准备需要提交的数据
+      var linkMan = this.data.name;
+      var mobile = this.data.phone
+      var address = this.data.floor + this.data.room 
+      var provinceId = this.data.provinceId
+      var cityId = this.data.cityId
+      var token = wx.getStorageSync('token');
+
+      //进行提交
+      WXAPI.addAddress({
+        token:token,
+        provinceId:provinceId,
+        cityId:cityId,
+        linkMan:linkMan,
+        mobile:mobile,
+        address:address,
+      }).then(res=>{
+        console.log(res);
+        if(res.code ==0){
+          wx.showToast({
+            title:'添加成功',
+            icon:'success'
           });
+          wx.navigateTo({
+            url: '../order/order',
+          });
+        }else{
+          wx.showToast({
+            title:res.msg,
+            icon:'none'
+          })
         }
-      ).catch(err => {
-        console.log(err)
       })
     }else{
       wx.showToast({
@@ -89,59 +98,10 @@ Page({
     }
 
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
+
   onLoad: function(options) {
 
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
 
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
-  }
 })

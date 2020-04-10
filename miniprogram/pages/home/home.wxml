@@ -10,7 +10,7 @@
 <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
   <block wx:for="{{banners}}" wx:key="unique">
     <swiper-item>
-      <image src="{{item.picUrl}}" bind:tap="toDetail" data-id="{{item.id}}"/>
+      <image src="{{item.picUrl}}"  data-id="{{item.id}}"/>
     </swiper-item>
   </block>
 </swiper>
@@ -23,7 +23,7 @@
 <view class="welfare-container">
   <scroll-view scroll-y="true">
     <view class="welfares">
-      <block wx:for-items="{{recommendGoods}}" wx:key="name">
+      <block wx:for-items="{{goods}}" wx:key="name">
         <view class="welfares-good" bindtap="toDetail" data-name="{{item.name}}" data-id="{{item.id}}" >
           <view>
             <image src="{{item.pic}}"  class="welfares-image" mode="widthFix" />

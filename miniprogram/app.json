@@ -1,13 +1,16 @@
 {
   "cloud": true,
   "pages": [
+    "pages/order/order",
+    "pages/discount/discount",
+    
+    "pages/userInfo/userInfo",
+    "pages/cart/cart",
     "pages/detail/detail",
     "pages/home/home",
     "pages/notice/show",
     "pages/start/start",
     "pages/splash/splash",
-    "pages/userInfo/userInfo",
-    "pages/cart/cart",
     "pages/member/member"
   ],
   "window": {

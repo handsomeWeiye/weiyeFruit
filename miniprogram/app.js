@@ -1,126 +1,62 @@
 //app.js
+const WXAPI = require('apifm-wxapi')
+WXAPI.init('weiye')
+
 App({
 
 
   onLaunch: function () {
-
-    var that = this
-
-
-    if (!wx.cloud) {
-      console.error('请使用 2.2.3 或以上的基础库以使用云能力')
-    } else {
-      wx.cloud.init({
-        traceUser: true,
-      })
-    }
-
-    //bmob初始化模块
-    var Bmob = require('utils/Bmob-2.2.2.min.js');
-    Bmob.initialize('7b9a591c3684f7ac', '410423');
-    const queryUser = Bmob.Query('member');
-    that.queryUser = queryUser;
-
-    that.login(queryUser);
-
+    this.login();
   },
 
-  //全局变量监听，动态刷新
-  // 这里这么写，是要在其他界面监听，而不是在app.js中监听，而且这个监听方法，需要一个回调方法。
-  // watch: function (method) {
-  //   var obj = this.globalData;
-  //   Object.defineProperty(obj, "carts", {
-  //     configurable: true,
-  //     enumerable: true,
-  //     set: function (value) {
-  //       method(value);
-  //     },
-  //     get: function () {
-  //       // 可以在这里打印一些东西，然后在其他界面调用getApp().globalData.name的时候，这里就会执行。
-  //       console.log(this.carts);
-  //       return this.carts;
-  //     }
-  //   })
-  // },
-
-
-  //用户登录模块
-  login: function (queryUser) {
-
-    var that = this;
-
-
-    // 登录
+  //用户登录
+  login: function () {
+    var that  = this
+    // 尝试登录
     wx.login({
-      success: res => {
-        console.info(res.code);
-        wx.cloud.callFunction({
-          name: 'getUserId',
-          data: {
-            code: res.code
+      success: function(res) {
+        //首先获取code码
+        const code = res.code;
+        console.log(code);
+        
+        WXAPI.login_wx(code).then(function(res){
+          if(res.code == 10000){
+            //该用户没有注册，那么进行注册
+            that.register();
+          }else if(res.code == 0){
+            //登录成功，保存token
+            console.log(res)
+            var token = res.data.token
+            wx.setStorageSync('token', token)
+            console.log('用户token以保存',token);
+            
+          }else{
+            //否则用户登录失败
+            console.log('用户登录失败');
+            
           }
-        }).then(
-          res => {
-            console.info(res);
-            var openId = res.result['event']['userInfo']['openId'];
-            console.info(openId);
-            queryUser.equalTo('openId', "==", openId);
-            queryUser.find().then(
-              (res) => {
-                if (res.length == 0) {
-                  //如果此前没有记录，那么就创建用户，并且将userId赋值
-                  queryUser.set('openId', openId);
-                  queryUser.save().then(
-                    res => {
-                      console.log(res)
-                      that.globalData.userId = res['objectId'];
-                      console.log(that.globalData.userId)
-                    }
-                  ).catch(err => {
-                    console.log(err);
-                  })
-                } else {
-                  //如果此前有记录的，那么直接取第一个，因为openid只有一个，并且将userId赋值
-                  //并且尝试获取address，phone和nickNam信息,如果phone有信息，代表用户授权过电话号，如果nickname有信息，代表用户授权过个人信息
-                  var userId = res[0]['objectId'];
-                  that.globalData.userId = userId;
-                  queryUser.get(userId).then(
-                    res => {
-                      console.log(res);
-                      if (res.name != "") {
-                        //代表用户已经授权果个人信息的获取，否则服务器中不可能会有该信息
-                        //拥有该授权的情况下，获取个人信息,并将其赋给全局变量
-                        that.globalData.isHasNickNam = true;
-                        wx.getUserInfo({
-                          success: res => {
-                            that.globalData.userInfo = res.userInfo;
-                          }
-
-                        })
-                      }
-                      if (res.phone != "") {
-                        that.globalData.isHasPhone = true;
-
-                      }
-                      if (res.address != "") {
-                        that.globalData.isHasAddresss = true;
-
-                      }
-                      console.log(that.globalData.isHasNickNam);
-                      console.log(that.globalData.isHasPhone);
-                      console.log(that.globalData.isHasAddresss);
-                    }
-                  )
-
-                  console.log(that.globalData.userId);
-                }
-              }
-            )
-          }
-        )
+        })
       }
     })
 
+  },
+
+  //用户注册
+  register(){
+    wx.login({
+      success:function(res){
+        const code = res.code;
+        WXAPI.register_simple({code:code}).then(res=>{
+          console.log(res);
+          if(res.code == 0){
+            console.log('用户注册成功');
+          }else{
+            console.log('用户注册失败')
+          };
+          
+        })
+      }
+    })
   },
 
   onHide: function () {
@@ -255,30 +191,6 @@ App({
 
 
 
-  // watch:function(method){
-  //   var obj = this.globalData;
-  //   Object.defineProperty(obj,"name",{
-  //     configurable:true,
-  //     enumerable:true,
-  //     set:function(value){
-  //       //给这个属性设置值的时候触发的函数
-  //       //把新设置的值赋给了私有变量_name(也许是个存放器)
-  //       this._name = value;
-  //       console.log('是否会被执行')
-  //       //执行一个回调方法（函数中再调用函数）当这个属性被赋新值的时候就会执行这个函数
-  //       method(value);
-  //     },
-
-  //     get: function () {
-  //       //可以在这里打印一些东西，然后在其他界面调用getApp().globalData.name的时候，这里就会执行。
-  //       //当获取值的时候触发的函数
-  //       //取值的时候返回的是这个私有变量
-  //       console.log(this._name);
-  //       return this._name
-  //     }
-
-  //   })
-  // },
 
   globalData: {
     totalMoney: null,

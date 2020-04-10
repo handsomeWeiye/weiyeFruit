@@ -21,6 +21,7 @@
   margin: 30rpx;
   padding: 30rpx;
   flex-direction: column;
+  justify-content: center;
 }
 
 .address {
@@ -31,9 +32,19 @@
 .fenge {
   border: 0;
   border-bottom: 1px dashed #ccc;
+  font-size: large;
   background: #999;
   margin-bottom: 20rpx;
   margin-top: 20rpx;
+}
+
+.fenge1 {
+  padding: 0 20px 0;
+  margin: 20px 0;
+  line-height: 1px;
+  border-left: 200px solid #ddd;
+  border-right: 200px solid #ddd;
+  text-align: center;
 }
 
 .persion {
@@ -161,19 +172,153 @@
   justify-content: space-between;
   margin: 10rpx;
 }
+
 .tableware {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin: 10rpx;
 }
+
 .payMode {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin: 10rpx;
 }
-.btn{
+
+.btn {
   display: flex;
   flex-direction: row;
+}
+
+page {
+  background: #f5f5f5;
+}
+
+.coupon-item {
+  width: 100%;
+}
+
+.style-six {
+  width: auto;
+  height: 200rpx;
+  position: relative;
+  margin: 20rpx 10rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F7DBCD;
+  color: #E5004F;
+}
+
+.style-six .info-box {
+  -webkit-box: 1;
+  -webkit-flex: 1;
+  flex: 1;
+  padding: 0 3% 0 10%;
+  position: relative;
+}
+
+.coupon-item .nick {
+  padding: .66% 0;
+  color: #E5004F;
+  font-size: 28rpx;
+}
+
+.coupon-item .coupon-money {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  font-size: 1.2rem;
+  align-items: center;
+}
+
+.coupon-item .coupon-money .of {
+  font-size: 32rpx;
+}
+
+.coupon-item .coupon-money text {
+  font-size: 56rpx;
+}
+
+.coupon-item .coupon-money .lay:last-child {
+  flex: 1;
+  padding: 0 3%;
+  font-size: 30rpx;
+  line-height: 1.22rem;
+}
+
+.coupon-item .coupon-money .lay .demand {
+  margin-top: 20rpx;
+  color: #f39898;
+}
+
+.style-six .get-btn {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 1.5rem;
+  line-height: 1.35;
+  width: 28%;
+  background-color: #fff;
+  position: relative;
+  margin-left: 100rpx;
+}
+
+.style-six .get-btn span {
+  border: 1rpx solid #E5004F;
+  padding: 8rpx 16rpx;
+  border-radius: 26rpx;
+  color: #E5004F;
+  font-size: 28rpx;
+}
+
+.style-six:after {
+  top: -.12rem;
+}
+
+/* 齿轮 */
+
+.style-six:before {
+  bottom: -.12rem;
+  -webkit-transform: rotate(180deg);
+}
+
+.style-six:after, .style-six:before {
+  content: "";
+  height: .5rem;
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: block;
+  z-index: 9;
+  background-image: linear-gradient(-45deg, #f5f5f5 25%, transparent 25%, transparent), linear-gradient(-135deg, #f5f5f5 25%, transparent 25%, transparent), linear-gradient(-45deg, transparent 75%, #f5f5f5 75%), linear-gradient(-135deg, transparent 75%, #f5f5f5 75%);
+  background-size: 1rem 1rem;
+  background-repeat: repeat-x, repeat-x;
+}
+
+.style-six:after {
+  top: -.12rem;
+}
+
+.style-six:after, .style-six:before {
+  content: "";
+  height: .5rem;
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: block;
+  z-index: 9;
+  background-image: linear-gradient(-45deg, #f5f5f5 25%, transparent 25%, transparent), linear-gradient(-135deg, #f5f5f5 25%, transparent 25%, transparent), linear-gradient(-45deg, transparent 75%, #f5f5f5 75%), linear-gradient(-135deg, transparent 75%, #f5f5f5 75%);
+  background-size: 1rem 1rem;
+  background-repeat: repeat-x, repeat-x;
 }

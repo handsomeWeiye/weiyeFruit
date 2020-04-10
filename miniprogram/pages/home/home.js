@@ -116,18 +116,14 @@ Page({
       }
     })
   },
+  //跳转到详情页面
   toDetail(e) {
     console.log(e)
     wx.navigateTo({
-      url: "/pages/detail/index?id=" + e.currentTarget.dataset.id
+      url: "/pages/detail/detail?id=" + e.currentTarget.dataset.id
     })
   },
-  tapBanner(e) {
-    console.log(e)
-    wx.navigateTo({
-      url: "/pages/detail/index?id=" + e.currentTarget.dataset.id
-    })
-  },
+  //跳转到公告页面
   toNotice(e) {
     console.log(e)
     wx.navigateTo({

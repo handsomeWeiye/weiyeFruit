@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "van-field": "../../miniprogram_npm/vant-weapp/field/index"
+  }
 }

@@ -1,11 +1,4 @@
-<!-- <wxs module="fn">
-  module.exports = {
-    parseFloat: function(num) {
-      return parseFloat(num).toFixed(2)
-    }，
-  }
-</wxs> -->
-  <wxs module="fn">
+<wxs module="fn">
       module.exports = {
           parseFloat: function(num){
             return parseFloat(num);
@@ -15,44 +8,32 @@
           }
       }
   </wxs>
-
 <view>
-  <view class="title">
-    <text class="titleStyle">提交订单</text>
-  </view>
   <view class="peisong">
     <view wx:if="{{isHasInfo}}" bindtap="updateInfo">
       <text class="address">{{userInfo.address}}</text>
-      <text class="name">{{userInfo.name}} {{userInfo.phone}}</text>
+      <text class="name">{{userInfo.linkMan}} {{userInfo.mobile}}</text>
     </view>
     <view wx:else>
-      <button bindtap="addUserInfo">完善配送信息</button>
+      <button bindtap="updateInfo">完善配送信息</button>
     </view>
-
     <view class="fenge"></view>
-    <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
-      <view wx:if="{{! isHasTime}}">
-        <van-button type="primary" bindchange="bindMultiPickerChange">选择配送时间呦</van-button>
+    <picker mode="multiSelector" bindchange="getDeliveryTime" value="{{multiIndex}}" range="{{deliveryArray}}">
+      <view wx:if="{{! isHasTime}}" style="margin-left:150rpx">
+        <van-button type="primary" bindchange="getDeliveryTime">选择配送时间呦</van-button>
       </view>
       <view wx:else class="yujishijan">大约{{deliveryTime}}送达</view>
-
     </picker>
-
   </view>
   <view class="count">
-    <block wx:for="{{carts}}">
-      <view wx:if="{{item.isSeleted}}">
-        <view class="orderDetail">
-          <image class="productImage" src="{{item.image}}"></image>
-          <text class="productNum">*{{item.num}}</text>
-          <text class="productName">{{item.name}}</text>
-          <text class="originPrice">{{item.orginPrice}}</text>
-          <text class="Price">{{item.price}}</text>
-        </view>
+    <block wx:for="{{cartInfo.data.items}}" wx:key="indexs">
+      <view class="orderDetail">
+        <image class="productImage" src="{{item.pic}}"></image>
+        <text class="productNum">*{{item.number}}</text>
+        <text class="productName">{{item.name}}</text>
+        <text class="price">￥{{item.price}}</text>
       </view>
-
     </block>
-
     <view class="fenge"></view>
     <view class="cost">
       <view class="baozhuang">
@@ -65,21 +46,46 @@
       </view>
     </view>
     <view class="fenge"></view>
-    <view class="discount" bindtap="onOpen" class="discount">
+    <view class="discount" bindtap="myCouponsOpen" class="discount">
       <text>代金券</text>
       <text>-￥{{discount==null?0:discount}}</text>
     </view>
-    <van-action-sheet show="{{ show }}" actions="{{ actions }}" bind:close="onClose" bind:select="onSelect" />
+    <van-action-sheet show="{{ isCouponShow }}" description="选择优惠券" bind:close="myCouponsClose" bind:select="myCouponsSelect">
+      <!-- <van-button type="primary">
+          <text style="font-size:40rpx;margin-left:20rpx">{{item.name}}</text>
+          <text style="color:red;margin-left:20rpx">￥{{item.money}}</text>
+          <text style="margin-left:20rpx">满{{item.moneyHreshold}}元,可用</text>
+        </van-button> -->
+      <view class="coupon-item">
+        <view class="style-six" wx:for="{{couponList}}" wx:key="couponList">
+          <view class="info-box">
+            <view class="nick">{{item.name}}</view>
+            <view class="coupon-money">
+              <view class="lay of">
+                ￥
+                <text>{{item.money}}</text>
+              </view>
+              <view class="lay">
+                <view class="tit">满{{item.moneyHreshold}}元,可用</view>
+                <view class="demand">有效期截止{{item.dateEnd}}</view>
+              </view>
+            </view>
+          </view>
+          <view  class="get-btn"><span  bindtap='myCouponsSelect' data-id='{{item.id}}' data-money='{{item.money}}' data-moneyHreshold='{{item.moneyHreshold}}'> 立即使用 </span></view>
+        </view>
+      </view>
+    </van-action-sheet>
     <view class="fenge"></view>
     <view class="totalPrice">
-      <text>已优惠 <text class="originPrice">￥{{fn.toFixed(totalOriginMoney - totalMoney + discount)}}</text></text>
-      <text class="price">小计 ￥{{fn.toFixed(totalMoney + packageCost - discount)>=0?fn.toFixed(totalMoney + packageCost - discount):0}}</text>
+      <!-- <text>已优惠 <text class="originPrice">￥{{fn.toFixed(totalOriginMoney - totalMoney + discount)}}</text></text> -->
+      <text class="price">
+        小计 ￥{{price>=0?price:0}}
+      </text>
     </view>
     <view class="fenge"></view>
     <view class="btn">
       <button type="primary">提交订单</button>
     </view>
-
   </view>
   <view class="remark">
     <!-- <view class="message">

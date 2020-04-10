@@ -1,43 +1,34 @@
-<scroll-view class="scroll" scroll-y="true">
-  <view class="separate"></view>
-  <view wx:for="{{carts}}" wx:key='index'>
-    <view class="cart_container">
-      <image class="item-select" bindtap="switchSelect" data-index="{{index}}" data-id="{{index}}" src="{{item.isSeleted?'../../images/cart/selected.png':'../../images/cart/select.png'}}" />
-      <image class="item-image" src="{{item.image}}"></image>
-      <view class="column">
-        <text class="title">{{item.name}}</text>
-        <view class="row">
-          <text class="sku-price">￥</text>
-          <text class="sku-price">{{item.price}}</text>
-          <view class="sku">
-
-            <view class="stepper">
-              <!-- 减号 -->
-              <text class="{{minusStatus}}" bindtap="bindMinus" data-index="{{index}}" data-id="{{index}}">-</text>
-              <!-- 数值 -->
-              <input type="number" bindchange="bindManual" value="{{item.num}}" data-index="{{index}}" />
-              <!-- 加号 -->
-              <text class="normal" bindtap="bindPlus" data-index="{{index}}" data-id="{{index}}">+</text>
+<view wx:if="{{isNull}}" style="display:flex;justify-content:center;  flex-direction:column;align-items:center;">
+  <view class='text-highlight' style="margin-top:50rpx;">◉急速配送 　◉24小时无忧退款 　◉满15元起费</view>
+  <van-button type="primary" bind:tap="toHome" style="margin-top:300rpx;">去逛逛</van-button>
+</view>
+<view wx:else>
+  <scroll-view class="scroll" scroll-y="true">
+    <view class="separate"></view>
+    <view wx:for="{{cartInfo.data.items}}" wx:key='index'>
+      <view class="cart_container">
+        <image class="item-image" src="{{item.pic}}"></image>
+        <view class="column">
+          <text class="title">{{item.name}}</text>
+          <view class="row">
+            <text class="sku-price">￥</text>
+            <text class="sku-price">{{item.price}}</text>
+            <view class="sku">
+              <van-stepper value="{{item.number}}" bind:change="changeGoodsNum" data-key="{{item.key}}"></van-stepper>
             </view>
-
           </view>
         </view>
-
+        <image style="margin-left:40rpx;" src="../../images/cart/remove.png" bindtap="removeCarts" data-key="{{item.key}}" class="remove"></image>
       </view>
-    <image src="../../images/cart/remove.png" bindtap="removeCarts" data-item="{{item}}" class="remove"></image>
+      <view class="separate"></view>
     </view>
-    <view class="separate"></view>
-  </view>
-
-
-</scroll-view>
+  </scroll-view>
+</view>
 <view class="bottom_total">
   <view class="bottom_line"></view>
   <view class="row">
-    <image class="item-allselect" bindtap="allSelect" src="{{isAllSelect?'../../images/cart/selected.png':'../../images/cart/select.png'}}" />
-    <text class="small_text">全选</text>
-    <text>合计:￥ </text>
-    <text class="price">{{totalMoney}}</text>
-    <button class="button-red" bindtap="toBuy" formType="submit">去结算</button>
+    <text style="margin-left:40rpx;font-size:20px">合计:￥</text>
+    <text class="price" style="margin-left:5rpx;font-size:30px">{{cartInfo.data.price}}</text>
+    <button class="button-red" bindtap="toOrder" formType="submit">去结算</button>
   </view>
 </view>
