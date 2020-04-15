@@ -30,7 +30,8 @@ Page({
       if (res.code == 0) {
         console.log('获取购物车信息成功', res.data);
         this.setData({
-          cartInfo: res
+          cartInfo: res,
+          isNull: false
         })
       } else
         if (res.code == 700) {

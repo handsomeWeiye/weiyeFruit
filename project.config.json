@@ -2,7 +2,7 @@
 	"miniprogramRoot": "miniprogram/",
 	"cloudfunctionRoot": "cloudfunctions/",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"enhance": true,
 		"postcss": true,
@@ -22,7 +22,7 @@
 			"outputPath": ""
 		}
 	},
-	"appid": "wxba1634b4957abfd4",
+	"appid": "wxc8ed700c4c779183",
 	"projectname": "weiyeFruit",
 	"libVersion": "2.9.5",
 	"simulatorType": "wechat",

@@ -1,22 +1,22 @@
 {
   "cloud": true,
   "pages": [
+    "pages/home/home",
+    "pages/start/start",
+    "pages/order-list/index",
     "pages/order/order",
     "pages/discount/discount",
-    
     "pages/userInfo/userInfo",
     "pages/cart/cart",
     "pages/detail/detail",
-    "pages/home/home",
     "pages/notice/show",
-    "pages/start/start",
     "pages/splash/splash",
     "pages/member/member"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "伟业果园",
+    "navigationBarTitleText": "玉琮商贸",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {

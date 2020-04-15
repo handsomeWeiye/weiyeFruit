@@ -203,6 +203,7 @@ App({
     isHasPhone: false,
     isHasNickNam: false,
     carts: [],
+    startPrice:15,
 
     //主题控制
     globalBGColor: '#00afb4',

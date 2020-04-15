@@ -1,6 +1,5 @@
 // pages/splash/splash.js
 var app = getApp()
-var Bmob = require('../../utils/Bmob-2.2.2.min.js');
 Page({
 
   /**

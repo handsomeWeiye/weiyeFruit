@@ -83,7 +83,7 @@ Page({
       console.log('优惠券详情数据:', res)
       wx.showModal({
         title: '提示',
-        content: '读取成功',
+        content: '暂无详情',
         showCancel: false
       })
     })

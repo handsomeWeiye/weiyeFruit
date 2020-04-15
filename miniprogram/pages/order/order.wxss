@@ -166,6 +166,7 @@
   padding: 30rpx;
 }
 
+
 .message {
   display: flex;
   flex-direction: row;

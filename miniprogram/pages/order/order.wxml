@@ -19,10 +19,10 @@
     </view>
     <view class="fenge"></view>
     <picker mode="multiSelector" bindchange="getDeliveryTime" value="{{multiIndex}}" range="{{deliveryArray}}">
-      <view wx:if="{{! isHasTime}}" style="margin-left:150rpx">
+      <view wx:if="{{!deliveryTime}}" style="margin-left:150rpx">
         <van-button type="primary" bindchange="getDeliveryTime">选择配送时间呦</van-button>
       </view>
-      <view wx:else class="yujishijan">大约{{deliveryTime}}送达</view>
+      <view wx:else class="yujishijan">{{deliveryTime}}送出</view>
     </picker>
   </view>
   <view class="count">
@@ -42,7 +42,7 @@
       </view>
       <view class="distribution">
         <text>配送费</text>
-        <text>￥0</text>
+        <text>￥{{deliveryCost}}</text>
       </view>
     </view>
     <view class="fenge"></view>
@@ -51,11 +51,6 @@
       <text>-￥{{discount==null?0:discount}}</text>
     </view>
     <van-action-sheet show="{{ isCouponShow }}" description="选择优惠券" bind:close="myCouponsClose" bind:select="myCouponsSelect">
-      <!-- <van-button type="primary">
-          <text style="font-size:40rpx;margin-left:20rpx">{{item.name}}</text>
-          <text style="color:red;margin-left:20rpx">￥{{item.money}}</text>
-          <text style="margin-left:20rpx">满{{item.moneyHreshold}}元,可用</text>
-        </van-button> -->
       <view class="coupon-item">
         <view class="style-six" wx:for="{{couponList}}" wx:key="couponList">
           <view class="info-box">
@@ -84,15 +79,23 @@
     </view>
     <view class="fenge"></view>
     <view class="btn">
-      <button type="primary">提交订单</button>
+      <button type="primary" bind:tap="createOrder">提交订单</button>
     </view>
   </view>
   <view class="remark">
-    <!-- <view class="message">
-      <text>备注</text>
-      <text>口味偏好等要求</text>
-    </view> -->
-    <!-- <view class="fenge"></view> -->
+    <view class="message">
+      <van-field
+      label="备注"
+    value="{{ remark }}"
+    border="{{ false }}"
+    bind:change="getRemark"
+    custom-style="background-color: cornflowerblue;font-size:40rpx;"
+
+  />
+      <!-- <text>备注</text>
+      <text>口味偏好等要求</text> -->
+    </view>
+    <view class="fenge"></view>
     <view class="tableware" bindtap="tableWareOpen">
       <text>餐具数量</text>
       <text>{{tableWareChoice}}</text>

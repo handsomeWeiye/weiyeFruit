@@ -37,7 +37,8 @@
 <view wx:else>
   <!-- 商品评价 -->
   <scroll-view scroll-y="true">
-    <block wx:for-items="{{goodsReputation}}" wx:key="name">
+    <text >暂无评论</text>
+    <block  wx:for-items="{{goodsReputation}}" wx:key="name">
       <view class="commentBlock">
         <text class="text-remark">{{item.body}}</text>
         <text class="text-remark">{{item.createdAt}}</text>
