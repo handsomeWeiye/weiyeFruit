@@ -1,8 +1,8 @@
 {
   "cloud": true,
   "pages": [
-    "pages/home/home",
     "pages/start/start",
+    "pages/home/home",
     "pages/order-list/index",
     "pages/order/order",
     "pages/discount/discount",

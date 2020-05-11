@@ -35,7 +35,6 @@ swiper-item image {
   margin:10px 5px;
 }
 .welfares-good{
-  height: 500rpx; 
   width: 47%;
   margin:0px auto;
   margin-bottom: 20px;

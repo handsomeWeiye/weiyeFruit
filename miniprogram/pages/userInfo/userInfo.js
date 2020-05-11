@@ -22,6 +22,9 @@ Page({
       ['一单元', '二单元', '三单元', '四单元']
     ],
   },
+  onShareAppMessage(options){
+
+  },
 
   bindMultiPickerChange: function(e) {
     console.log('选择的index为', e.detail.value)

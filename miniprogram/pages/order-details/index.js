@@ -14,6 +14,9 @@ Page({
         appid: wx.getStorageSync('wxAppid')
       });
     },
+    onShareAppMessage(options){
+
+    },
     onShow : function () {
       var that = this;
       WXAPI.orderDetail(wx.getStorageSync('token'), that.data.orderId).then(function (res) {

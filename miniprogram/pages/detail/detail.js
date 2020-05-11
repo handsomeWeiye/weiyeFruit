@@ -28,12 +28,14 @@ Page({
 
     propertyid: '',//目前被选中的商品规格大类
     propertychildid: null, //目前被选中的商品规格ID
-    price: 100, //某规格之下该物品的价格
+    price: null, //某规格之下该物品的价格
     cartInfo: {}, //购物车中的信息
 
     operation: '',//用户选择的操作名
   },
+  onShareAppMessage(options){
 
+  },
   //初始化操作
   onLoad: function (options) {
     console.log(options);
@@ -41,7 +43,8 @@ Page({
     console.log(goodsId);
 
     this.setData({
-      goodsId: goodsId
+      goodsId: goodsId,
+      price:options.price
     });
     this.getCartInfo();
     this.getGoodsDetail(goodsId);
@@ -65,11 +68,13 @@ Page({
   //获取商品评价数据
   getGoodsReputation(goodsId) {
     console.log(goodsId);
-    
-    var Page = 1
-    var pageSize = 10
+    var page = '1'
+    var pageSize = '10'
     var token = wx.getStorageSync('token')
-    WXAPI.goodsReputation(goodsId,Page,pageSize,token).then(res => {
+    var object = {
+      'goodsId':goodsId
+    }
+    WXAPI.goodsReputation(object).then(res => {
       console.log(res);
       if (res.code == 0) {
         console.log('商品评价：', res.data)
@@ -182,7 +187,7 @@ Page({
     var goodsId = this.data.goodsId;
     var optionId = this.data.propertyid;
     var optionValueId = this.data.propertychildid;
-    var sku = [{
+    var   sku = [{
       "optionId": optionId,
       "optionValueId": optionValueId
     }]
@@ -190,18 +195,24 @@ Page({
     console.log(optionValueId);
     
     if (optionValueId === null) {
-      WXAPI.shippingCarInfoAddItem(token, goodsId, number).then(res => {
-        console.log(res);
-        if (res.code == 0) {
-          wx.showToast(
-            {
-              icon: 'sucess',
-              title: '添加购物车成功'
-            }
-          )
+      wx.showToast(
+        {
+          icon: 'sucess',
+          title: '请先选择规格哦'
         }
+      )
+      // WXAPI.shippingCarInfoAddItem(token, goodsId, number).then(res => {
+      //   console.log(res);
+      //   if (res.code == 0) {
+      //     wx.showToast(
+      //       {
+      //         icon: 'sucess',
+      //         title: '添加购物车成功'
+      //       }
+      //     )
+      //   }
 
-      });
+      // });
       this.getCartInfo();
 
     } else {
@@ -237,13 +248,23 @@ Page({
 
   //立即下单（底部弹出窗口下单）
   toBuy: function () {
-    wx.showToast({
-      title: '立即购买',
-      icon: 'success',
-      duration: 3000
-    });
-    wx.navigateTo({
-      url: '../order/order',
-    })
+    if (this.data.propertychildid === null) {
+      wx.showToast(
+        {
+          icon: 'sucess',
+          title: '请先选择规格哦'
+        }
+      )}else{
+      this.addCart(),
+        wx.showToast({
+          title: '立即购买',
+          icon: 'success',
+          duration: 3000
+        });
+      wx.navigateTo({
+        url: '../order/order',
+      })
+      }
+
   },
 })

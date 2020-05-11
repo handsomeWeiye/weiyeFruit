@@ -6,6 +6,9 @@ Page({
     remind: '加载中',
     angle: 0
   },
+  onShareAppMessage(options){
+
+  },
   goToIndex:function(){
     wx.switchTab({
       url: '/pages/home/home',

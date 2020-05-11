@@ -12,6 +12,9 @@ Page({
     cartInfo: {},
     isNull: false,
   },
+  onShareAppMessage(options){
+
+  },
 
   //初始化
   onLoad: function (options) {

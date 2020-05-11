@@ -116,11 +116,14 @@ Page({
       }
     })
   },
+  onShareAppMessage(options){
+
+  },
   //跳转到详情页面
   toDetail(e) {
     console.log(e)
     wx.navigateTo({
-      url: "/pages/detail/detail?id=" + e.currentTarget.dataset.id
+      url: "/pages/detail/detail?id=" + e.currentTarget.dataset.id +'&'+ "price=" + e.currentTarget.dataset.minprice 
     })
   },
   //跳转到公告页面

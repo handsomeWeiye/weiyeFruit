@@ -3,7 +3,6 @@
   text="{{noticeLastOne.title}}" bind:tap="toNotice" data-id="{{noticeLastOne.id}}"
 
 />
-
 <!-- 图片轮播栏 -->
 
 
@@ -24,7 +23,7 @@
   <scroll-view scroll-y="true">
     <view class="welfares">
       <block wx:for-items="{{goods}}" wx:key="name">
-        <view class="welfares-good" bindtap="toDetail" data-name="{{item.name}}" data-id="{{item.id}}" >
+        <view class="welfares-good" bindtap="toDetail" data-name="{{item.name}}" data-id="{{item.id}}"   data-minPrice="{{item.minPrice}}">
           <view>
             <image src="{{item.pic}}"  class="welfares-image" mode="widthFix" />
           </view>
@@ -42,6 +41,6 @@
 </view>
 
 
-<view class="weui-loadmore">
+<!-- <view class="weui-loadmore">
   <view class="weui-loadmore__tips">----------------到底啦----------------</view>
-</view>
+</view> -->

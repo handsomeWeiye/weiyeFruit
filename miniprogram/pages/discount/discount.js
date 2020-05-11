@@ -14,6 +14,9 @@ Page({
     sliderLeft: 0,
     couponList: undefined
   },
+  onShareAppMessage(options){
+
+  },
   onLoad: function (options) {
     this.coupons()
   },

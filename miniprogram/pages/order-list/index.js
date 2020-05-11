@@ -9,6 +9,9 @@ Page({
 		currentType: 0,
 		tabClass: ["", "", "", "", ""]
 	},
+	onShareAppMessage(options){
+
+	},
 	copyOrderNumber(e){
 		wx.setClipboardData({
 			data:e.currentTarget.dataset.num,
@@ -154,7 +157,7 @@ Page({
 			  paySign: res.data.sign,
 			  fail: function (aaa) {
 				wx.showToast({
-				  title: '支付失败:' + aaa
+				  title: '支付失败' 
 				})
 			  },
 			  success: function () {

@@ -16,6 +16,9 @@ Page({
   },
   onShow: function () {
   },
+  onShareAppMessage(options){
+
+  },
 
   //获取用户信息
   getUserInfo() {

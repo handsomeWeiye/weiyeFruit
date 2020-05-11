@@ -5,35 +5,35 @@ WXAPI.init('weiye')
 App({
 
 
-  onLaunch: function () {
+  onLaunch: function() {
     this.login();
   },
 
   //用户登录
-  login: function () {
-    var that  = this
+  login: function() {
+    var that = this
     // 尝试登录
     wx.login({
       success: function(res) {
         //首先获取code码
         const code = res.code;
         console.log(code);
-        
-        WXAPI.login_wx(code).then(function(res){
-          if(res.code == 10000){
+
+        WXAPI.login_wx(code).then(function(res) {
+          if (res.code == 10000) {
             //该用户没有注册，那么进行注册
             that.register();
-          }else if(res.code == 0){
+          } else if (res.code == 0) {
             //登录成功，保存token
             console.log(res)
             var token = res.data.token
             wx.setStorageSync('token', token)
-            console.log('用户token以保存',token);
-            
-          }else{
+            console.log('用户token以保存', token);
+
+          } else {
             //否则用户登录失败
             console.log('用户登录失败');
-            
+
           }
         })
       }
@@ -42,29 +42,33 @@ App({
   },
 
   //用户注册
-  register(){
+  register() {
     wx.login({
-      success:function(res){
+      success: function(res) {
         const code = res.code;
-        WXAPI.register_simple({code:code}).then(res=>{
+        WXAPI.register_simple({
+          code: code
+        }).then(res => {
           console.log(res);
-          if(res.code == 0){
+          if (res.code == 0) {
             console.log('用户注册成功');
-          }else{
+          } else {
             console.log('用户注册失败')
           };
-          
+
         })
       }
     })
   },
 
-  onHide: function () {
+
+
+  onHide: function() {
     this.saveCarts();
   },
 
   //获取carts持久化数据模块
-  getCarts: function () {
+  getCarts: function() {
     var that = this;
     wx.getStorage({
       key: "carts",
@@ -81,12 +85,12 @@ App({
   },
 
   //保存carts持久化数据模块
-  saveCarts: function () {
+  saveCarts: function() {
     wx.setStorageSync("carts", Array.from(this.globalData.carts));
   },
 
   //add模块，添加商品到购物车
-  addCarts: function (parm) {
+  addCarts: function(parm) {
     console.log('购物车添加');
     if (this.globalData.carts.length == 0) {
       //如果carts是空的，那么就直接添加
@@ -146,7 +150,7 @@ App({
   },
 
   //remove模块，从购物车中删除商品
-  removeCarts: function (parm) {
+  removeCarts: function(parm) {
     for (let i = 0; i < this.globalData.carts.length; i++) {
       //遍历循环，如果找到ID相同的商品，那么就删除，提示删除成功，重新计算总价，并且退出循环
       if (this.globalData.carts[i]['objectId'] == parm.target.dataset.item.objectId) {
@@ -166,7 +170,7 @@ App({
 
 
   //count模块，用户计算carts中被选中的商品的总价格，总原价，总数量，并且赋值到全局变量
-  countTotal: function () {
+  countTotal: function() {
     //清空原有的数据
     this.globalData.totalMoney = 0;
     this.globalData.totalOriginMoney = 0;
@@ -203,7 +207,7 @@ App({
     isHasPhone: false,
     isHasNickNam: false,
     carts: [],
-    startPrice:15,
+    startPrice: 15,
 
     //主题控制
     globalBGColor: '#00afb4',
